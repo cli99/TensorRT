@@ -124,6 +124,7 @@ class GPT2TRTDecoder(TRTHFRunner):
             "logits": torch.zeros(self.batch_size, self.max_sequence_length, GPT2ModelTRTConfig.VOCAB_SIZE, dtype=torch.float32).cuda()
         }
         self.bindings = self._allocate_memory(self.inputs, self.outputs)
+        self.main_input_name = "input_ids"  # https://github.com/huggingface/transformers/pull/14803
 
     def prepare_inputs_for_generation(self, input_ids, **kwargs):
         # Todo (@pchadha): add position_ids, token_type_ids support
